@@ -1,0 +1,35 @@
+[tool.pyright]
+include = ["src"]
+exclude = [
+  "**/node_modules",
+  "**/__pycache__",
+]
+venvPath = "venvs"
+venv = "emacs-subreddit"
+
+[project]
+name = "emacs-subreddit"
+version = "0.1.0"
+dependencies = [
+  "praw",
+  "typing_extensions",
+  # rtv needs...
+  "beautifulsoup4",
+  "decorator",
+  "kitchen",
+  "requests",
+  "six",
+]
+authors = [
+  {name = "dickmao", email = "richard@commandlinesystems.com"},
+  {name = "Marcel Rieger", email = "github.riga@icloud.com"},
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest >=6.0",
+  "pylint",
+]
+
+[project.scripts]
+app = "subreddit.__main__:main"

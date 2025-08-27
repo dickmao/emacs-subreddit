@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    paths-ignore:
+    - '**.rst'
+    - '**.txt'
+    - '**.texi'
+  push:
+    paths-ignore:
+    - '**.txt'
+    - '**.rst'
+    - '**.texi'
+    branches-ignore:
+    - 'master'
+    - 'main'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest,ubuntu-latest]
+        emacs_version: [29.2, 30.2]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+
+    - name: paths
+      run: |
+        echo "$HOME/bin" >> $GITHUB_PATH
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        echo "LD_LIBRARY_PATH=$HOME/.local/lib" >> $GITHUB_ENV
+
+    - name: test
+      run: |
+        make test
+        make install
