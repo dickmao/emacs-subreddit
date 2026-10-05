@@ -1,0 +1,13 @@
+build
+venvs
+logs
+shared
+bin
+*.pyc
+*autoloads.el
+*.egg-info
+.cache
+images
+deps
+/epkg/
+/epkg.mk
